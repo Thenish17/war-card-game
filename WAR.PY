@@ -8,9 +8,6 @@ for i in range(len(deck)):
         player_one.append(deck[i])
     else:
         player_two.append(deck[i])
-print(player_one)
-print("-----------------------------------------------------------------------------------------------------------------------------------")
-print(player_two)
 
 def remove_top_card():
     player_one.pop(0)
@@ -21,10 +18,10 @@ def war():
             remove_top_card()
     except IndexError:
         if len(player_one) > len(player_two):
-            print("player one winds")
+            print("player one wins the ga,e ")
             exit()
         else:
-            print("player two winds ")
+            print("player two wins the game ")
             exit()
     compare_top_card()
 def winner_takes(player):
@@ -42,22 +39,14 @@ def compare_top_card():
     if len(player_two) == 0:
         print("player two wins")
         exit()
-    print("len of one " + str(len(player_one)))
-    print("len of two" + str(len(player_two)))
-    print ("_-----------------------------------------------------------------------------------")
-    print(player_one)
-    print(player_two)
-    print ("_-----------------------------------------------------------------------------------")
     if player_one[0][0] > player_two[0][0]:
         print("player one wins")
         winner_takes("player_one")
         remove_top_card()
     elif player_one[0][0] == player_two[0][0]:
-        print("----------------------------------------------------------------------")
         print("war")
         
         war()
-        print ("_-----------------------------------------------------------------------------------")
     else:
         winner_takes("player_two")
         print("player two wins")
