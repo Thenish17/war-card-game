@@ -1,3 +1,4 @@
+from cgitb import text
 import random,itertools, tkinter
 deck = list(itertools.product(range(2,14),['Spade','Heart','Diamond','Club']))
 random.shuffle(deck)
@@ -31,8 +32,20 @@ def winner_takes(player):
     if player == "player_two":
         player_two.append(player_two[0])
         player_two.append(player_one[0])
+def update_card():
+    p1.config(text=str(player_one[0]))
+    p2.config(text=str(player_two[0]))
 
+def update_winner(player):
+    if player == "p1":
+        winnerLable.config(text="player one wins")   
+    else:
+         winnerLable.config(text="player two wins") 
 def compare_top_card():
+    try:
+        update_card()
+    except IndexError:
+        root.destroy()
     if len(player_one) == 0:
         print("player one wins the game")
         exit()
@@ -43,11 +56,13 @@ def compare_top_card():
         print("player one wins")
         winner_takes("player_one")
         remove_top_card()
+        update_winner("p1")
     elif player_one[0][0] == player_two[0][0]:
         print("war")
         
         war()
     else:
+        update_winner("p2")
         winner_takes("player_two")
         print("player two wins")
         remove_top_card()
@@ -58,8 +73,15 @@ def compare_top_card():
 root = tkinter.Tk()
 screen = tkinter.Canvas(root,width=700 , height= 700, bg= 'white')
 next_button = tkinter.Button(root, text="next", command= compare_top_card)
+p1 = tkinter.Label(root,bg="red")
+p2 = tkinter.Label(root,bg='green')
+winnerLable = tkinter.Label(root)
 
+
+p2.pack()
+p1.pack()
 next_button.pack()
+winnerLable.pack()
 
 
 root.mainloop()
